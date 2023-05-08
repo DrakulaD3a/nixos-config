@@ -23,7 +23,7 @@ parted /dev/sda -- mkpart primary linux-swap -16GiB 100%
 
 ### Unenecrypted drive
 ```
-mkfs.btrfs /dev/sda1
+mkfs.ext4 /dev/sda1
 mount /dev/sda1 /mnt
 mkswap /dev/sda2
 swapon /dev/sda2
@@ -39,7 +39,7 @@ mount /dev/sda3 /mnt/boot
 ```
 cryptsetup luksFormat /dev/sda1
 cryptsetup luksOpen /dev/sda1 crypt
-mkfs.btrfs /dev/mapper/crypt
+mkfs.ext4 /dev/mapper/crypt
 mount /dev/mapper/crypt /mnt
 mkswap /dev/sda2
 swapon /dev/sda2
@@ -57,7 +57,7 @@ nixos-generate-config --root /mnt
 nix-shell -p git
 git clone https://github.com/DrakulaD3a/nixos-config.git /mnt/etc/nixos/nixos-config
 cd /mnt/etc/nixos/nixos-config
-cp ../hardware-configuration.nix hosts/<host>
+cp ../hardware-configuration.nix .
 nixos-install --flake .#<host>
 ```
 Awailable hosts:
