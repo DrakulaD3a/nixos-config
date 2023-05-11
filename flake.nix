@@ -14,10 +14,10 @@
     in
     {
       nixosConfigurations = (
-	import ./hosts {
-	  inherit (nixpkgs) lib;
-	  inherit inputs user location nixpkgs home-manager hyprland;
-	}
+        import ./hosts {
+          inherit (nixpkgs) lib;
+          inherit inputs user location nixpkgs home-manager hyprland;
+        }
       );
     };
 }

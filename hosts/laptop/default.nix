@@ -2,7 +2,8 @@
 
 {
   imports = [(import ./hardware-configuration.nix)] ++
-	    [(import ../../modules/hyprland)];
+	        [(import ../../modules/hyprland)] ++
+            (import ../../modules/virtualisation);
   
   # Boot options
   boot = {
@@ -32,6 +33,9 @@
   environment = {
     # Specific packages only for this host installed system-wide
     systemPackages = with pkgs; [
+      gcc
+      python3Minimal
+      nodejs
     ];
   };
 
@@ -39,5 +43,9 @@
   services.blueman.enable = true;
 
   # Enable backlight control
-  programs.light.enable = true;
+  programs = {
+    light.enable = true;
+    zsh.enable = true;
+    git.enable = true;
+  };
 }

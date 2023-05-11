@@ -1,0 +1,4 @@
+[
+  ./foot.nix
+  ./tmux.nix
+]

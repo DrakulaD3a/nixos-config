@@ -20,22 +20,22 @@ in
       };
     };
     modules = [
-      hyprland.nixosModules.default
+      inputs.hyprland.nixosModules.default
       ./laptop
       ./configuration.nix
 
       home-manager.nixosModules.home-manager {
-	home-manager.useGlobalPkgs = true;
-	home-manager.useUserPackages = true;
-	home-manager.extraSpecialArgs = {
-	  inherit user;
-	  host = {
-	    hostName = "IdeaPad";
-	  };
-	};
-	home-manager.users.${user} = {
-	  imports = [(import ./home.nix)] ++ [(import ./laptop/home.nix)];
-	};
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = {
+            inherit user;
+            host.hostName = "IdeaPad";
+          };
+          users.${user} = {
+            imports = [ ./laptop/home.nix ];
+          };
+        };
       }
     ];
   };

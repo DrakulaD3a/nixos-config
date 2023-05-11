@@ -4,7 +4,7 @@
   # Creating user
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "lp" "scanner" "kvm" "libvirtd" "uucp" ];
+    extraGroups = [ "wheel" "video" "audio" "camera" "networkmanager" "kvm" "libvirtd" "uucp" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -45,6 +45,7 @@
         pciutils
         bintools
     ];
+    pathsToLink = [ "/share/zsh" ];
   };
 
   services = {
@@ -60,30 +61,6 @@
     };
     # Autologin to shell
     getty.autologinUser = "${user}";
-  };
-
-  programs = {
-    # Git
-    git.enable = true;
-    # Cofiguring zsh
-    zsh = {
-      enable = true;
-      syntaxHighlighting.enable = true;
-      histSize = 1000000;
-      histFile = "$HOME/.cache/history";
-      promptInit = ''
-        autoload -U colors && colors
-        PS1="%B[%n@%M %~]$%b "
-        '';
-      # Setup shell aliases
-      shellAliases = {
-        g = "git";
-      };
-      # Enable vim mode
-      setOptions = {
-        "VI"
-      };
-    };
   };
 
   # Configuring nix package manager
