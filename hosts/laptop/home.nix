@@ -26,4 +26,18 @@
       rustup
     ];
   };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "tokyo-night";
+      package = pkgs.tokyo-night-gtk;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style.name = "gtk2";
+  };
 }

@@ -6,327 +6,200 @@
   home-manager.users.${user} = {
     programs.waybar = {
       enable = true;
-      style = ''
-	* {
-	    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-	    font-size: 13px;
-	    margin: -1px;
-	}
+      settings.mainBar = {
+        spacing = 4;
+        modules-left = ["wlr/workspaces"];
+        modules-center = ["hyprland/submap"];
+        modules-right = [
+          "hyprland/language"
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "backlight"
+          "battery"
+          "clock"
+        ];
 
-	window#waybar {
-	    background-color: #000000;
-	    color: #ffffff;
-	    transition-property: background-color;
-	}
+        "wlr/workspaces" = {
+          on-click = "activate";
+          sort-by-number = true;
+          format = "{icon}";
+          format-icons = {
+            "urgent" = "";
+            "active" = "";
+            "default" = "";
+          };
+        };
 
-	button {
-	    /* Avoid rounded borders under each button name */
-	    border: none;
-	    border-radius: 0;
-	}
+        "hyprland/submap" = {
+          format = "{}";
+          max-length = 30;
+          tooltip = false;
+        };
 
-	#workspaces button {
-	    padding: 0 5px;
-	    background-color: transparent;
-	    color: #ffffff;
-	}
+        "hyprland/language" = {
+          format = " {}";
+          format-en = "en";
+          format-cs = "cz";
+        };
 
-	#workspaces button:hover {
-	    background: rgba(0, 0, 0, 0.2);
-	}
+        pulseaudio = {
+          format = "{icon} {volume} {format_source}";
+          format-muted = " {format_source}";
+          format-bluetooth = " {volume}";
+          format-bluetooth-muted = " {volume}";
+          format-source = " {volume}";
+          format-source-muted = "";
+          format-icons = {
+            default = ["" "" ""];
+          };
+          tooltip = false;
+        };
 
-	#workspaces button.active {
-	    background-color: #64727D;
-	    box-shadow: inset 0 -3px #ffffff;
-	}
+        network = {
+          format = "  {essid}";
+          tooltip = false;
+        };
 
-	#workspaces button.urgent {
-	    background-color: #eb4d4b;
-	}
+        cpu = {
+          states = {
+            "warning" = 90;
+          };
+          format = " {usage}%";
+          tooltip = false;
+        };
 
-	#mode {
-	    background-color: #64727D;
-	    border-bottom: 3px solid #ffffff;
-	}
+        memory = {
+          states = {
+            "warning" = 90;
+          };
+          format = " {}%";
+          tooltip = false;
+        };
 
-	#language,
-	#submap,
-	#clock,
-	#battery,
-	#cpu,
-	#memory,
-	#disk,
-	#temperature,
-	#backlight,
-	#network,
-	#pulseaudio,
-	#wireplumber,
-	#custom-media,
-	#tray,
-	#mode,
-	#idle_inhibitor,
-	#scratchpad,
-	#mpd {
-	    padding: 0 10px;
-	    color: #ffffff;
-	}
+        backlight = {
+          format = "{icon} {percent}";
+          format-icons = ["" "" "" "" "" "" "" "" ""];
+        };
 
-	#submap {
-	  font-weight: bold;
-	  background-color: #ff0000;
-	}
+        battery = {
+          states = {
+            "good" = 95;
+            "warning" = 20;
+            "critical" = 10;
+          };
+          format = "{icon}{capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
+          format-icons = [" " " " " " " " " "];
+          tooltip = false;
+        };
 
-	#window,
-	#workspaces {
-	    margin: 0 4px;
-	}
+        clock = {
+          timezone = "Europe/Prague";
+          format = " {:%H:%M}";
+          format-alt = " {:%d.%m.%Y}";
+          tooltip = false;
+        };
 
-	/* If workspaces is the leftmost module, omit left margin */
-	/* .modules-left > widget:first-child > #workspaces {
-	    margin-left: 0;
-	} */
+        style = ''
+          * {
+              font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+              font-size: 13px;
+              color: #c0caf5;
+            }
 
-	/* If workspaces is the rightmost module, omit right margin */
-	.modules-right > widget:last-child > #workspaces {
-	    margin-right: 0;
-	}
+            window#waybar {
+              background-color: transparent;
+              border-bottom: 3px solid transparent;
+              transition-property: background-color;
+              transition-duration: 0.5s;
+            }
 
-	#clock {
-	    background-color: #000000;
-	}
+            window#waybar.hidden {
+              opacity: 0.2;
+            }
 
-	#battery {
-	    background-color: #000000;
-	    color: #ffffff;
-	}
+            button {
+              box-shadow: inset 0 -3px transparent;
+              border: none;
+              border-radius: 0;
+            }
 
-	#battery.charging, #battery.plugged {
-	    color: #26A65B;
-	    background-color: #000000;
-	}
+            button:hover {
+              box-shadow: inset 0 -3px #c0caf5;
+            }
 
-	#battery.critical:not(.charging) {
-	    background-color: #000000;
-	    color: #f53c3c;
-	}
+            #workspaces button {
+              padding: 5px;
+              background-color: transparent;
+            }
 
-	#cpu {
-	    background-color: #000000;
-	    color: #2ecc71;
-	}
+            #workspaces button:hover {
+              background: rgba(0, 0, 0, 0.2);
+            }
 
-	#memory {
-	    background-color: #000000;
-	    color: #9b59b6;
-	}
+            #workspaces button.active {
+              box-shadow: inset 0 -3px #c0caf5;
+            }
 
-	#disk {
-	    background-color: #000000;
-	    color: #964B00;
-	}
+            #workspaces button.urgent {
+              background-color: #eb4d4b;
+            }
 
-	#backlight {
-	    background-color: #000000;
-	    color: #90b1b1;
-	}
+            #mode {
+              background-color: #64727D;
+              border-bottom: 3px solid #ffffff;
+            }
 
-	#network {
-	    background-color: #000000;
-	    color: #2980b9;
-	}
+            #language,
+            #submap,
+            #clock,
+            #battery,
+            #cpu,
+            #memory,
+            #disk,
+            #temperature,
+            #backlight,
+            #network,
+            #pulseaudio,
+            #wireplumber,
+            #custom-media,
+            #tray,
+            #mode,
+            #idle_inhibitor,
+            #scratchpad,
+            #mpd,
+            #window,
+            #workspaces {
+              margin-top: 0.1rem;
+              background-color: #1a1b26;
+              padding: 0 0.5rem;
+              border-radius: 0.75rem
+            }
 
-	#network.disconnected {
-	    background-color: #000000;
-	    color: #f53c3c;
-	}
+            #tray {
+              margin-right: 0.5rem;
+            }
 
-	#pulseaudio {
-	    color: #f1c40f;
-	    background-color: #000000;
-	}
+            #submap {
+              font-weight: bold;
+              background-color: #eb4d4b;
+            }
 
-	#pulseaudio.muted {
-	    color: #90b1b1;
-	    background-color: #000000;
-	}
+            .modules-left > widget:first-child > #workspaces {
+              margin-left: 0.9rem;
+            }
 
-	#wireplumber {
-	    color: #fff0f5;
-	    background-color: #000000;
-	}
+            .modules-right {
+              margin-right: 0.9rem;
+            }
 
-	#wireplumber.muted {
-	    color: #f53c3c;
-	    background-color: #000000;
-	}
-
-	#temperature {
-	    color: #f0932b;
-	    background-color: #000000;
-	}
-
-	#temperature.critical {
-	    color: #eb4d4b;
-	    background-color: #000000;
-	}
-
-	#tray {
-	    color: #2980b9;
-	    background-color: #000000;
-	}
-
-	#tray > .passive {
-	    -gtk-icon-effect: dim;
-	}
-
-	#tray > .needs-attention {
-	    -gtk-icon-effect: highlight;
-	    background-color: #eb4d4b;
-	}
-
-	#idle_inhibitor {
-	    background-color: #2d3436;
-	}
-
-	#idle_inhibitor.activated {
-	    background-color: #ecf0f1;
-	    color: #2d3436;
-	}
-
-	#language {
-	    background-color: #000000;
-	    color: #ffffff;
-	    padding: 0 5px;
-	    margin: 0;
-	    min-width: 16px;
-	}
-
-	#keyboard-state {
-	    color: #97e1ad;
-	    background-color: #000000;
-	    padding: 0 0px;
-	    margin: 0 5px;
-	    min-width: 16px;
-	}
-
-	#keyboard-state > label {
-	    padding: 0 5px;
-	}
-
-	#keyboard-state > label.locked {
-	    background: rgba(0, 0, 0, 0.2);
-	}
-
-	#scratchpad {
-	    background: rgba(0, 0, 0, 0.2);
-	}
-
-	#scratchpad.empty {
-		background-color: transparent;
-	}
-      '';
-
-      settings = with host; {
-	Main = {
-	  layer = "top";
-	  position = "top";
-	  spacing = 4;
-
-	  modules-left = ["wlr/workspaces"];
-	  modules-center = ["hyprland/submap"];
-	  modules-right = [
-	    "hyprland/language"
-	    "pulseaudio"
-	    "network"
-	    "cpu"
-	    "memory"
-	    "backlight"
-	    "battery"
-	    "clock"
-	  ];
-
-	  "wlr/workspaces" = {
-	    on-click = "activate";
-	    sort-by-number = true;
-	    format = "{icon}";
-	    format-icons = {
-	      "urgent" = "";
-	      "active" = "";
-	      "default" = "";
-	    };
-	  };
-
-	  "hyprland/submap" = {
-	    format = "{}";
-	    max-length = 30;
-	    tooltip = false;
-	  };
-
-	  "hyprland/language" = {
-	    format = " {}";
-	    format-en = "en";
-	    format-cs = "cz";
-	  };
-
-	  "cpu" = {
-	    states = {
-	      "warning" = 90;
-	    };
-	    format = " {usage}%";
-	    tooltip = false;
-	  };
-
-	  "memory" = {
-	    states = {
-	      "warning" = 90;
-	    };
-	    format = " {}%";
-	    tooltip = false;
-	  };
-
-	  "pulseaudio" = {
-	    format = "{icon} {volume} {format_source}";
-	    format-muted = " {format_source}";
-	    format-bluetooth = " {volume}";
-	    format-bluetooth-muted = " {volume}";
-	    format-source = " {volume}";
-	    format-source-muted = "";
-	    format-icons = {
-	      default = ["" "" ""];
-	    };
-	    tooltip = false;
-	  };
-
-	  "backlight" = {
-	    format = "{icon} {percent}";
-	    format-icons = ["" "" "" "" "" "" "" "" ""];
-	  };
-
-	  "network" = {
-	    format = "  {essid}";
-	    tooltip = false;
-	  };
-
-	  "battery" = {
-	    states = {
-	      "good" = 95;
-	      "warning" = 20;
-	      "critical" = 10;
-	    };
-	    format = "{icon}{capacity}%";
-	    format-charging = " {capacity}%";
-	    format-plugged = " {capacity}%";
-	    format-icons = [" " " " " " " " " "];
-	    tooltip = false;
-	  };
-
-	  "clock" = {
-	    timezone = "Europe/Prague";
-	    format = " {:%H:%M}";
-	    format-alt = " {:%d.%m.%Y}";
-	    tooltip = false;
-	  };
-	};
+            .modules-right > widget:last-child > #workspaces {
+              margin-right: 0.9rem;
+            }
+        '';
       };
     };
   };

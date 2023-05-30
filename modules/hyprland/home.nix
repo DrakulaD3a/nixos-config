@@ -2,78 +2,70 @@
 
 let
   hyprlandConf = with host; ''
+    # monitor=name,resolution,position,scale
     monitor=eDP-1, 1920x1080@60, 0x0, 1
 
     exec-once = hyprpaper & foot --server & waybar
 
+    # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
-	    kb_layout = us, cz
-		    kb_variant = altgr-intl, qwerty
-		    kb_model =
-		    kb_options = grp:win_space_toggle, caps:swapescape
-		    kb_rules =
+        kb_layout = us, cz
+        kb_variant = altgr-intl, qwerty
+        kb_model =
+        kb_options = grp:win_space_toggle, caps:swapescape
+        kb_rules =
 
-		    follow_mouse = 1
+        follow_mouse = 1
 
-		    touchpad {
-			    natural_scroll = no
-		    }
+        touchpad {
+            natural_scroll = no
+        }
 
-	    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
     }
 
     general {
+        gaps_in = 4
+        gaps_out = 8
+        border_size = 2
+        col.active_border = rgb(70b9f7) rgb(7d63ff) 45deg
+        col.inactive_border = rgb(3b4261)
 
-	    gaps_in = 0 # 4
-		    gaps_out = 0 # 8
-		    border_size = 2 # 2
-		    col.active_border = rgba(ffffffff) rgba(595959aa) 45deg
-		    col.inactive_border = rgba(595959aa)
-
-		    layout = dwindle
+        layout = dwindle
     }
 
     decoration {
+        rounding = 3
+        blur = yes
+        blur_size = 3
+        blur_passes = 1
+        blur_new_optimizations = on
 
-	  rounding = 0
-		  blur = yes
-		  blur_size = 3
-		  blur_passes = 1
-		  blur_new_optimizations = on
-
-		  drop_shadow = yes
-		  shadow_range = 4
-		  shadow_render_power = 3
-		  col.shadow = rgba(1a1a1aee)
+        drop_shadow = yes
+        shadow_range = 4
+        shadow_render_power = 3
+        col.shadow = rgba(1a1a1aee)
     }
 
     animations {
-	  enabled = no
-
-	  bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-	  animation = windows, 1, 7, myBezier
-	  animation = windowsOut, 1, 7, default, popin 80%
-	  animation = border, 1, 10, default
-	  animation = fade, 1, 7, default
-	  animation = workspaces, 1, 6, default
+        enabled = no
     }
 
     dwindle {
-	  pseudotile = yes # master switch for pseudotiling. Enabling is bound to Mod + P in the keybinds section below
-	  preserve_split = yes # you probably want this
+        pseudotile = yes # master switch for pseudotiling. Enabling is bound to Mod + P in the keybinds section below
+        preserve_split = yes # you probably want this
     }
 
     master {
-	  new_is_master = true
+        new_is_master = true
     }
 
     gestures {
-	  workspace_swipe = off
+        workspace_swipe = off
     }
 
     device:epic mouse V1 {
-	 sensitivity = -0.5
+        sensitivity = -0.5
     }
 
     windowrule = float, imv
@@ -99,10 +91,10 @@ let
     bind = $Mod, Q, pin
 
     # Move focus with Mod + vim keys
-    bind = $Mod, H, movefocus, l
-    bind = $Mod, L, movefocus, r
-    bind = $Mod, K, movefocus, u
-    bind = $Mod, J, movefocus, d
+    bind = $Mod, LEFT, movefocus, l
+    bind = $Mod, RIGHT, movefocus, r
+    bind = $Mod, UP, movefocus, u
+    bind = $Mod, DOWN, movefocus, d
 
     # Resizing after pressing Mod + R
     bind = $Mod, R, submap, resize
