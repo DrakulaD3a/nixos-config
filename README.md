@@ -57,7 +57,7 @@ nixos-generate-config --root /mnt
 nix-shell -p git
 git clone https://github.com/DrakulaD3a/nixos-config.git /mnt/etc/nixos/nixos-config
 cd /mnt/etc/nixos/nixos-config
-cp ../hardware-configuration.nix .
+cp ../hardware-configuration.nix hosts/<host>
 nixos-install --flake .#<host>
 ```
 Awailable hosts:
