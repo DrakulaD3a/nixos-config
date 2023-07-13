@@ -1,4 +1,4 @@
-{ config, lib, pkgs, host, user, ... }:
+{ config, lib, pkgs, host, user, proj_root, ... }:
 
 {
   environment.systemPackages = with pkgs; [ waybar ];
