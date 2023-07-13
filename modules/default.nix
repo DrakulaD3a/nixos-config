@@ -4,7 +4,6 @@
   ./shell.nix
   ./foot.nix
   ./virtualisation.nix
-  ./tmux.nix
   ./waybar.nix
   ./zellij.nix
   ./zathura.nix
