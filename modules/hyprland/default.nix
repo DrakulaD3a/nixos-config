@@ -27,9 +27,9 @@
       grim
       slurp
       wl-clipboard
-      hyprpaper
       wlr-randr
       swaylock
+      swaybg
       foot
       imv
     ];
@@ -44,10 +44,4 @@
     enable = true;
     wlr.enable = true;
   };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      waybar = hyprland.packages.${system}.waybar-hyprland;
-    })
-  ];
 }
