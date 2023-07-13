@@ -1,7 +1,7 @@
 local o = vim.opt
 local g = vim.g
 
-vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("tokyonight")
 
 o.shell = "/usr/bin/zsh"
 
@@ -31,30 +31,32 @@ o.incsearch = true
 
 o.swapfile = false
 o.backup = false
-o.undodir = { os.getenv("HOME").."/.local/share/nvim/undo" }
+o.undodir = { os.getenv("HOME") .. "/.local/share/nvim/undo" }
 o.undofile = true
 
 o.updatetime = 50
 
-o.mouse = "i"
+-- Disable statusline
+-- o.laststatus = 0
+-- o.cmdheight = 0
 
 o.laststatus = 3
--- o.cmdheight = 0
 
 o.fillchars = { eob = " " }
 
 o.signcolumn = "yes"
 
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
-	callback = function()
-		o.formatoptions:remove("c")
-		o.formatoptions:remove("r")
-		o.formatoptions:remove("o")
-	end,
+    pattern = "*",
+    callback = function()
+        o.formatoptions:remove("c")
+        o.formatoptions:remove("r")
+        o.formatoptions:remove("o")
+        vim.cmd("TSBufEnable highlight")
+    end,
 })
 
--- netrw
-g.netrw_banner = 0
-g.netrw_liststyle = 3
-g.netrw_list_hide = ".git"
+-- For neovide
+o.guifont = "Hack Nerd Font Mono:h16"
+g.neovide_transparency = 0.9
+g.neovide_hide_mouse_when_typing = true

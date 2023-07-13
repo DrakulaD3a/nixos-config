@@ -5,6 +5,8 @@ return {
     },
     build = ":TSUpdate",
     opts = {
+        ensure_installed = { "rust", "c", "lua", "markdown", "markdown_inline", "vimdoc" },
+
         sync_install = false,
 
         -- When opening file, I dont have treesitter downloaded for, automatically download
@@ -19,13 +21,13 @@ return {
 
         -- Enable indenting using treesitter
         indent = {
-            enable = true;
+            enable = true,
         },
 
         playground = {
             enable = true,
             disable = {},
-            updatetime = 0, -- Debounced time for highlighting nodes in the playground from source code
+            updatetime = 0,          -- Debounced time for highlighting nodes in the playground from source code
             persist_queries = false, -- Whether the query persists across vim sessions
             keybindings = {
                 toggle_query_editor = 'o',

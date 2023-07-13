@@ -9,21 +9,27 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "folke/neodev.nvim",
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "glepnir/lspsaga.nvim",
+        event = "LspAttach",
         config = function()
-            local null_ls = require("null-ls");
-
-            null_ls.setup({
-                sources = {
-                    null_ls.builtins.diagnostics.eslint_d,
-                    null_ls.builtins.formatting.prettier.with({
-                        filetypes = {
-                            "javascript", "typescript", "javascriptreact", "typescriptreact",
-                        }
-                    }),
-                    null_ls.builtins.formatting.astyle,
-                }
+            require("lspsaga").setup({
+                lightbulb = {
+                    enable = false,
+                },
+                symbol_in_winbar = {
+                    enable = false,
+                },
+                ui = {
+                    title = false,
+                    border = "rounded",
+                },
+                beacon = {
+                    enable = false,
+                },
+                diagnostic = {
+                    show_code_action = false,
+                },
             })
         end,
-    }
+    },
 }
