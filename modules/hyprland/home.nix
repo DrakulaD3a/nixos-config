@@ -1,4 +1,4 @@
-{ config, lib, pkgs, host, ... }:
+{ config, lib, pkgs, host, proj_root, ... }:
 
 {
   # Where to store the configuration for hyprland
