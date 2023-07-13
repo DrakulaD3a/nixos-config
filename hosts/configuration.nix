@@ -25,9 +25,9 @@
   # Installing my preffered font
   fonts.fonts = with pkgs; [
     font-awesome
-      (nerdfonts.override {
-       fonts = [ "Hack" ];
-       })
+    (nerdfonts.override {
+      fonts = [ "Hack" ];
+    })
   ];
 
   environment = {
@@ -40,10 +40,10 @@
     # Default packages installed system-wide
     systemPackages = with pkgs; [
       vim
-        wget
-        curl
-        pciutils
-        bintools
+      wget
+      curl
+      pciutils
+      bintools
     ];
     pathsToLink = [ "/share/zsh" ];
   };
@@ -79,7 +79,7 @@
       experimental-features = nix-command flakes
       keep-outputs	    = true
       keep-derivations	    = true
-      '';
+    '';
   };
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;

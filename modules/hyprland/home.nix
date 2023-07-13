@@ -5,7 +5,8 @@ let
     # monitor=name,resolution,position,scale
     monitor=eDP-1, 1920x1080@60, 0x0, 1
 
-    exec-once = hyprpaper & foot --server & waybar
+    exec-once = swaybg -i ~/personal/pictures/wallpapers/wallpaper.jpg & foot --server & waybar
+    exec-once = hyprctl setcursor Bibata-Modern-Classic 22
 
     # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
     input {
@@ -25,6 +26,8 @@ let
     }
 
     general {
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
         gaps_in = 4
         gaps_out = 8
         border_size = 2
@@ -35,8 +38,10 @@ let
     }
 
     decoration {
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
+
         rounding = 3
-        blur = yes
+        blur = no
         blur_size = 3
         blur_passes = 1
         blur_new_optimizations = on
@@ -57,23 +62,36 @@ let
     }
 
     master {
+        # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
         new_is_master = true
     }
 
     gestures {
+        # See https://wiki.hyprland.org/Configuring/Variables/ for more
         workspace_swipe = off
     }
 
+    # Example per-device config
+    # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
     device:epic mouse V1 {
         sensitivity = -0.5
     }
 
+    # Example windowrule v1
+    # windowrule = float, ^(kitty)$
+    # Example windowrule v2
+    # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+    # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+
     windowrule = float, imv
     windowrule = float, galculator
 
+    # See https://wiki.hyprland.org/Configuring/Keywords/ for more
     $Mod = "ALT"
     $ShiftMod = "$Mod_SHIFT"
     $CtrlMod = "CTRL_$Mod"
+
+    # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
     # Spawn terminal
     bind = $Mod, RETURN, exec, footclient
@@ -91,10 +109,10 @@ let
     bind = $Mod, Q, pin
 
     # Move focus with Mod + vim keys
-    bind = $Mod, LEFT, movefocus, l
-    bind = $Mod, RIGHT, movefocus, r
-    bind = $Mod, UP, movefocus, u
-    bind = $Mod, DOWN, movefocus, d
+    bind = $Mod, H, movefocus, l
+    bind = $Mod, L, movefocus, r
+    bind = $Mod, K, movefocus, u
+    bind = $Mod, J, movefocus, d
 
     # Resizing after pressing Mod + R
     bind = $Mod, R, submap, resize

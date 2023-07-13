@@ -8,8 +8,8 @@
       enable = true;
       settings.mainBar = {
         spacing = 4;
-        modules-left = ["wlr/workspaces"];
-        modules-center = ["hyprland/submap"];
+        modules-left = [ "wlr/workspaces" ];
+        modules-center = [ "hyprland/submap" ];
         modules-right = [
           "hyprland/language"
           "pulseaudio"
@@ -52,7 +52,7 @@
           format-source = " {volume}";
           format-source-muted = "";
           format-icons = {
-            default = ["" "" ""];
+            default = [ "" "" "" ];
           };
           tooltip = false;
         };
@@ -80,7 +80,7 @@
 
         backlight = {
           format = "{icon} {percent}";
-          format-icons = ["" "" "" "" "" "" "" "" ""];
+          format-icons = [ "" "" "" "" "" "" "" "" "" ];
         };
 
         battery = {
@@ -92,7 +92,7 @@
           format = "{icon}{capacity}%";
           format-charging = " {capacity}%";
           format-plugged = " {capacity}%";
-          format-icons = [" " " " " " " " " "];
+          format-icons = [ " " " " " " " " " " ];
           tooltip = false;
         };
 

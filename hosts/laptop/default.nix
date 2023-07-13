@@ -1,10 +1,10 @@
 { pkgs, lib, user, ... }:
 
 {
-  imports = [(import ./hardware-configuration.nix)] ++
-	        [(import ../../modules/hyprland)] ++
-            (import ../../modules/virtualisation);
-  
+  imports = [ (import ./hardware-configuration.nix) ] ++
+    [ (import ../../modules/hyprland) ] ++
+    (import ../../modules/virtualisation);
+
   # Boot options
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -12,9 +12,9 @@
     # Selecting the bootloader
     loader = {
       systemd-boot = {
-	enable = true;
-	# Limit the number of stored configurations
-	configurationLimit = 5;
+        enable = true;
+        # Limit the number of stored configurations
+        configurationLimit = 5;
       };
       efi.canTouchEfiVariables = true;
       timeout = 3;
