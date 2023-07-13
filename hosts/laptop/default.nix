@@ -2,8 +2,7 @@
 
 {
   imports = [ (import ./hardware-configuration.nix) ] ++
-    [ (import ../../modules/hyprland) ] ++
-    (import ../../modules/virtualisation);
+    [ (import ../../modules/hyprland) ];
 
   # Boot options
   boot = {

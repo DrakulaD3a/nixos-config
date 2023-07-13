@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, proj_root, ... }:
 
 {
   programs.neovim = {
@@ -13,5 +13,5 @@
     fd
   ];
 
-  home.file.".config/nvim".source = ./neovim;
+  home.file.".config/nvim".source = "${proj_root.configs.path}/neovim";
 }

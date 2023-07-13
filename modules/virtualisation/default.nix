@@ -1,4 +1,0 @@
-[
-  ./qemu.nix
-  ./docker.nix
-]

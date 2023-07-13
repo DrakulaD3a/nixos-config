@@ -1,7 +1,7 @@
 { config, lib, pkgs, host, system, hyprland, ... }:
 
 {
-  imports = [ ../programs/waybar.nix ];
+  imports = [ ../waybar.nix ];
 
   # Automatically open hyprland
   environment = {
@@ -35,6 +35,8 @@
     ];
   };
 
+  security.pam.services.swaylock.text = "auth include login";
+
   # Enabling hyprland
   programs.hyprland.enable = true;
 
@@ -42,4 +44,10 @@
     enable = true;
     wlr.enable = true;
   };
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      waybar = hyprland.packages.${system}.waybar-hyprland;
+    })
+  ];
 }

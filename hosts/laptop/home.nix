@@ -3,9 +3,7 @@
 {
   # Window manager
   imports = [ (import ../../modules/hyprland/home.nix) ] ++
-    (import ../../modules/editors) ++
-    (import ../../modules/shells) ++
-    (import ../../modules/programs);
+    (import ../../modules);
 
   # Enable home manager
   programs.home-manager.enable = true;

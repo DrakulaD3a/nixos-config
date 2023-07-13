@@ -11,11 +11,19 @@
     let
       user = "lukas";
       location = "$HOME/.nixos";
+      proj_root =
+        let
+          path = builtins.toString ./.;
+        in
+        {
+          inherit path;
+          configs.path = "${path}/native_configs";
+        };
     in
     {
       nixosConfigurations = (
         import ./hosts {
-          inherit (nixpkgs) lib;
+          inherit (nixpkgs) lib proj_root;
           inherit inputs user location nixpkgs home-manager hyprland;
         }
       );
