@@ -1,17 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
 
-      ../../modules/nixos/virtualisation.nix
-    ];
+    ../../modules/nixos/virtualisation.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -20,7 +23,7 @@
   networking.hostName = "HomePC"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Prague";
@@ -64,7 +67,7 @@
 
   hardware.nvidia.modesetting.enable = true;
 
-  environment.plasma6.excludePackages = with pkgs.kdePackages;[
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     kate
     oxygen
@@ -97,7 +100,7 @@
   users.users.lukas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "ftp" "scanner" "power" "video" "uucp" "storage" "lp" "libvirtd" "input" "disk" "audio" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "ftp" "scanner" "power" "video" "uucp" "storage" "lp" "libvirtd" "input" "disk" "audio"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       firefox
       rustup
@@ -118,7 +121,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users.lukas = import ./home.nix;
   };
 
@@ -134,7 +137,7 @@
     usbutils
   ];
 
-  services.printing.drivers = [ pkgs.hplip ];
+  services.printing.drivers = [pkgs.hplip];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -162,7 +165,7 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
     };
     gc = {
       automatic = true;
@@ -190,6 +193,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
-

@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../modules/home/foot.nix
     ../../modules/home/git.nix
@@ -25,7 +27,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -36,13 +38,20 @@
     spotify
     webcord
 
+    alejandra
+
     steam
+
+    blender
+    krita
+    gimp
+    inkscape
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    (nerdfonts.override {fonts = ["Hack"];})
     font-awesome
 
     # # You can also create simple shell scripts directly inside your
@@ -76,6 +85,26 @@
       fi
 
       ${pkgs.tmux}/bin/tmux switch-client -t $selected_name
+    '')
+
+    (pkgs.writeShellScriptBin "edit-config" ''
+      set -e
+
+      pushd ~/nixos-config/
+
+      ${pkgs.neovim}/bin/nvim
+
+      ${pkgs.alejandra}/bin/alejandra . >/dev/null
+
+      echo "Rebuilding NixOS..."
+
+      sudo nixos-rebuild switch --flake .#HomePC &>nixos-switch.log || (${pkgs.coreutils}/bin/cat nixos-switch.log | grep --color error && false)
+
+      current=$(nixos-rebuild list-generations | grep current)
+
+      ${pkgs.git}/bin/git commit -am "$current"
+
+      popd
     '')
   ];
 

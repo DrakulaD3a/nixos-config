@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # TODO:
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     dconf
     waybar
     wlogout
