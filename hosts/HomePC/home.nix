@@ -86,16 +86,6 @@
 
       ${pkgs.tmux}/bin/tmux switch-client -t $selected_name
     '')
-
-    (pkgs.writeShellScriptBin "commit-nix-config" ''
-      cd ~/nixos-config/
-
-      ${pkgs.alejandra}/bin/alejandra .
-
-      current=$(nixos-rebuild list-generations | grep current)
-
-      ${pkgs.git}/bin/git commit -am "$current"
-    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

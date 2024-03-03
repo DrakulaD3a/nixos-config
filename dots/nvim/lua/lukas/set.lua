@@ -3,8 +3,6 @@ local g = vim.g
 
 vim.cmd.colorscheme("kanagawa")
 
-o.shell = "/usr/bin/zsh"
-
 o.wildmenu = true
 
 o.encoding = "utf-8"
@@ -47,7 +45,5 @@ o.laststatus = 3
 o.fillchars = { eob = " " }
 
 o.signcolumn = "yes"
-
-g.perl_host_prog = "/usr/bin/perl"
 
 vim.filetype.add({ extension = { wgsl = "wgsl" } })
