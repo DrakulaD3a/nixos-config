@@ -87,14 +87,10 @@
       ${pkgs.tmux}/bin/tmux switch-client -t $selected_name
     '')
 
-    (pkgs.writeShellScriptBin "rebuild" ''
+    (pkgs.writeShellScriptBin "commit-nix-config" ''
       cd ~/nixos-config/
 
       ${pkgs.alejandra}/bin/alejandra .
-
-      echo "Rebuilding NixOS..."
-
-      sudo nixos-rebuild switch --flake ~/nixos-config#HomePC
 
       current=$(nixos-rebuild list-generations | grep current)
 
