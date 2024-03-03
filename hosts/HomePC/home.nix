@@ -55,7 +55,7 @@
       if [[ $# -eq 1 ]]; then
           selected=$1
       else
-          selected=$(${pkgs.find} ~/personal ~/Projects ~/School ~/School/* ~/ -mindepth 1 -maxdepth 1 -type d | ${pkgs.fzf} --reverse)
+          selected=$(${pkgs.findutils}/bin/find ~/personal ~/Projects ~/School ~/School/* ~/ -mindepth 1 -maxdepth 1 -type d | ${pkgs.fzf}/bin/fzf --reverse)
       fi
 
       if [[ -z $selected ]]; then
@@ -65,17 +65,17 @@
       selected_name=$(basename "$selected" | tr . _)
 
       if [[ -z $${pkgs.tmux} ]]; then
-          if ! ${pkgs.tmux} attach -t $selected_name 2> /dev/null; then
-              ${pkgs.tmux} new-session -s $selected_name -c $selected
+          if ! ${pkgs.tmux}/bin/tmux attach -t $selected_name 2> /dev/null; then
+              ${pkgs.tmux}/bin/tmux new-session -s $selected_name -c $selected
           fi
           exit 0
       fi
 
-      if ! ${pkgs.tmux} has-session -t=$selected_name 2> /dev/null; then
-          ${pkgs.tmux} new-session -ds $selected_name -c $selected
+      if ! ${pkgs.tmux}/bin/tmux has-session -t=$selected_name 2> /dev/null; then
+          ${pkgs.tmux}/bin/tmux new-session -ds $selected_name -c $selected
       fi
 
-      ${pkgs.tmux} switch-client -t $selected_name
+      ${pkgs.tmux}/bin/tmux switch-client -t $selected_name
     '')
   ];
 

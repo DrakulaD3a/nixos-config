@@ -23,6 +23,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/run/media/lukas/Games" = 
+    { device = "/dev/disk/by-label/Games";
+      fsType = "ext4";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/9e678e41-5db4-4be0-b64f-5f8f1ab434f5"; }
     ];

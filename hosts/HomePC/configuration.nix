@@ -89,9 +89,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  programs.zsh.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lukas = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       firefox
@@ -100,6 +103,15 @@
       nodePackages.pnpm
       python3
       unzip
+    ];
+  };
+
+  users.extraUsers.tisk = {
+    isNormalUser = true;
+    password = "tisk";
+    packages = with pkgs; [
+      firefox
+      # TODO: Add the packages
     ];
   };
 
