@@ -87,24 +87,20 @@
       ${pkgs.tmux}/bin/tmux switch-client -t $selected_name
     '')
 
-    (pkgs.writeShellScriptBin "edit-config" ''
+    (pkgs.writeShellScriptBin "rebuild" ''
       set -e
 
       pushd ~/nixos-config/
-
-      ${pkgs.neovim}/bin/nvim
 
       ${pkgs.alejandra}/bin/alejandra . >/dev/null
 
       echo "Rebuilding NixOS..."
 
-      sudo nixos-rebuild switch --flake .#HomePC &>nixos-switch.log || (${pkgs.coreutils}/bin/cat nixos-switch.log | grep --color error && false)
+      sudo nixos-rebuild switch --flake .#HomePC
 
       current=$(nixos-rebuild list-generations | grep current)
 
       ${pkgs.git}/bin/git commit -am "$current"
-
-      popd
     '')
   ];
 
