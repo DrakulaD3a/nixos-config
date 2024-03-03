@@ -1,0 +1,36 @@
+[manager]
+layout = [1, 4, 3]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_hidden = false
+show_symlink = true
+
+[opener]
+folder = [{ exec = '$EDITOR "$@"', block = true, desc = "Open with $EDITOR" }]
+text = [{ exec = '$EDITOR "$@"', block = true, desc = "Open with $EDITOR" }]
+image = [
+    { exec = 'imv "$@"', desc = "Open with image viewer" },
+    { exec = 'gimp "$@"', desc = "Open with gimp" },
+]
+pdf = [{ exec = 'zathura "$@"', desc = "Open with pdf viewer" }]
+
+# FIXME: Doesn't work
+[open]
+rules = [
+    { mime = "text/*", use = "text" },
+    { mime = "image/*", use = "image" },
+
+    { name = "*.pdf", use = [
+        "pdf",
+        "browser",
+    ] },
+    { name = "*.html", use = [
+        "browser",
+        "text",
+    ] },
+]
+
+[plugin]
+prepend_previewers = [{ name = "*.md", exec = "glow" }]

@@ -53,6 +53,15 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.sddm.wayland.enable = true;
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia.modesetting.enable = true;
+
   environment.plasma6.excludePackages = with pkgs.kdePackages;[
     plasma-browser-integration
     kate
@@ -107,6 +116,8 @@
     curl
     gcc
     git
+    pciutils
+    usbutils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -142,6 +153,8 @@
       dates = "weekly";
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

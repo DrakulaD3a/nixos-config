@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ../../modules/home/neovim.nix
-    ../../modules/home/hyprland.nix
     ../../modules/home/foot.nix
-    ../../modules/home/tmux.nix
+    ../../modules/home/git.nix
+    ../../modules/home/neovim.nix
+    ../../modules/home/yazi.nix
+    ../../modules/home/zsh.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -35,6 +36,8 @@
     spotify
     webcord
 
+    steam
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -48,6 +51,32 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    (pkgs.writeShellScriptBin "tmux-sessionizer" ''
+      if [[ $# -eq 1 ]]; then
+          selected=$1
+      else
+          selected=$(${pkgs.find} ~/personal ~/Projects ~/School ~/School/* ~/ -mindepth 1 -maxdepth 1 -type d | ${pkgs.fzf} --reverse)
+      fi
+
+      if [[ -z $selected ]]; then
+          exit 0
+      fi
+
+      selected_name=$(basename "$selected" | tr . _)
+
+      if [[ -z $${pkgs.tmux} ]]; then
+          if ! ${pkgs.tmux} attach -t $selected_name 2> /dev/null; then
+              ${pkgs.tmux} new-session -s $selected_name -c $selected
+          fi
+          exit 0
+      fi
+
+      if ! ${pkgs.tmux} has-session -t=$selected_name 2> /dev/null; then
+          ${pkgs.tmux} new-session -ds $selected_name -c $selected
+      fi
+
+      ${pkgs.tmux} switch-client -t $selected_name
+    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -81,7 +110,7 @@
   #  /etc/profiles/per-user/lukas/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   nixpkgs.config.allowUnfree = true;

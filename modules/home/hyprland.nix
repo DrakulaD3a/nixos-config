@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+  # TODO:
   home.packages = with pkgs;[
     dconf
     waybar
