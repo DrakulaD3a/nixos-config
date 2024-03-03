@@ -88,15 +88,13 @@
     '')
 
     (pkgs.writeShellScriptBin "rebuild" ''
-      set -e
+      cd ~/nixos-config/
 
-      pushd ~/nixos-config/
-
-      ${pkgs.alejandra}/bin/alejandra . >/dev/null
+      ${pkgs.alejandra}/bin/alejandra .
 
       echo "Rebuilding NixOS..."
 
-      sudo nixos-rebuild switch --flake .#HomePC
+      sudo nixos-rebuild switch --flake ~/nixos-config#HomePC
 
       current=$(nixos-rebuild list-generations | grep current)
 
