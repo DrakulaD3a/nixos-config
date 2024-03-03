@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
+
+      ../../modules/nixos/virtualisation.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -95,7 +97,7 @@
   users.users.lukas = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "ftp" "scanner" "power" "video" "uucp" "storage" "lp" "libvirtd" "input" "disk" "audio" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       firefox
       rustup
@@ -131,6 +133,8 @@
     pciutils
     usbutils
   ];
+
+  services.printing.drivers = [ pkgs.hplip ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
