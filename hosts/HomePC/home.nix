@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ../../modules/home/foot.nix
     ../../modules/home/git.nix
     ../../modules/home/neovim.nix
     ../../modules/home/yazi.nix
@@ -119,7 +118,6 @@
   #  /etc/profiles/per-user/lukas/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
   };
 
   nixpkgs.config.allowUnfree = true;
