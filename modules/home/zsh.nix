@@ -1,13 +1,15 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    eza
-    bat
-  ];
-
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
     flags = ["--disable-up-arrow"];
+  };
+
+  programs.bat.enable = true;
+
+  programs.eza = {
+    enable = true;
+    enableAliases = true;
   };
 
   programs.zoxide = {
@@ -39,7 +41,7 @@
     shellAliases = {
       g = "git";
       c = "cargo";
-      ls = "eza";
+      
       cat = "bat";
 
       tn = "tmux new";
