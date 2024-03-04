@@ -20,6 +20,12 @@
     enableZshIntegration = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.tmux.enable = true;
   xdg.configFile."tmux/tmux.conf".source = ../../dots/tmux.conf;
 
