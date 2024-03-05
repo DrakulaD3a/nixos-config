@@ -1,12 +1,16 @@
 {pkgs, ...}: {
-  # TODO:
+  imports = [
+    ./swaylock.nix
+    ./waybar.nix
+    ./wlogout.nix
+  ];
+
   home.packages = with pkgs; [
     dconf
-    waybar
-    wlogout
-    swaylock
+    dunst
     swayidle
     hyprpaper
+    hyprpicker
     wofi
   ];
 
@@ -32,6 +36,6 @@
 
   xdg.configFile."hypr" = {
     recursive = true;
-    source = ../../dots/hypr;
+    source = ../../../dots/hypr;
   };
 }

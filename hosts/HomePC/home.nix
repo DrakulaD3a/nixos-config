@@ -4,6 +4,8 @@
   ...
 }: {
   imports = [
+    ../../modules/home/hyprland
+    ../../modules/home/foot.nix
     ../../modules/home/git.nix
     ../../modules/home/neovim.nix
     ../../modules/home/yazi.nix
@@ -36,11 +38,15 @@
     obsidian
     spotify
     webcord
+    playerctl
+
+    galculator
 
     alejandra
 
     steam
 
+    obs-studio
     blender
     krita
     gimp
