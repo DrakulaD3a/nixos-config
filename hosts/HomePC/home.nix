@@ -4,8 +4,6 @@
   ...
 }: {
   imports = [
-    ../../modules/home/hyprland
-    ../../modules/home/foot.nix
     ../../modules/home/git.nix
     ../../modules/home/neovim.nix
     ../../modules/home/yazi.nix
